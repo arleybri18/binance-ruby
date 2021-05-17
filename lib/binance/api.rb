@@ -6,7 +6,7 @@ module Binance
         raise Error.new(message: "interval is required") unless interval
         raise Error.new(message: "symbol is required") unless symbol
         params = { endTime: endTime, interval: interval, limit: limit, startTime: startTime, symbol: symbol }
-        Request.send!(api_key_type: :read_info, path: "/api/v1/klines", params: params,
+        Request.send!(api_key_type: :read_info, path: "/api/v3/klines", params: params,
                       api_key: api_key, api_secret_key: api_secret_key)
       end
 
@@ -15,26 +15,26 @@ module Binance
         params = {
           endTime: endTime, fromId: fromId, limit: limit, startTime: startTime, symbol: symbol,
         }.delete_if { |key, value| value.nil? }
-        Request.send!(api_key_type: :read_info, path: "/api/v1/aggTrades", params: params,
+        Request.send!(api_key_type: :read_info, path: "/api/v3/aggTrades", params: params,
                       api_key: api_key, api_secret_key: api_secret_key)
       end
 
       def depth!(symbol: nil, limit: 100, api_key: nil, api_secret_key: nil)
         raise Error.new(message: "symbol is required") unless symbol
         params = { limit: limit, symbol: symbol }
-        Request.send!(api_key_type: :read_info, path: "/api/v1/depth", params: params,
+        Request.send!(api_key_type: :read_info, path: "/api/v3/depth", params: params,
                       api_key: api_key, api_secret_key: api_secret_key)
       end
 
       def exchange_info!(api_key: nil, api_secret_key: nil)
-        Request.send!(api_key_type: :read_info, path: "/api/v1/exchangeInfo",
+        Request.send!(api_key_type: :read_info, path: "/api/v3/exchangeInfo",
                       api_key: api_key, api_secret_key: api_secret_key)
       end
 
       def historical_trades!(symbol: nil, limit: 500, fromId: nil, api_key: nil, api_secret_key: nil)
         raise Error.new(message: "symbol is required") unless symbol
         params = { fromId: fromId, limit: limit, symbol: symbol }
-        Request.send!(api_key_type: :read_info, path: "/api/v1/historicalTrades", params: params,
+        Request.send!(api_key_type: :read_info, path: "/api/v3/historicalTrades", params: params,
                       security_type: :market_data, api_key: api_key, api_secret_key: api_secret_key)
       end
 
@@ -66,7 +66,7 @@ module Binance
       def trades!(symbol: nil, limit: 500, api_key: nil, api_secret_key: nil)
         raise Error.new(message: "symbol is required") unless symbol
         params = { limit: limit, symbol: symbol }
-        Request.send!(api_key_type: :read_info, path: "/api/v1/trades", params: params,
+        Request.send!(api_key_type: :read_info, path: "/api/v3/trades", params: params,
                       api_key: api_key, api_secret_key: api_secret_key)
       end
 
@@ -75,7 +75,7 @@ module Binance
       def ticker_path(type:)
         case type
         when :daily
-          "/api/v1/ticker/24hr"
+          "/api/v3/ticker/24hr"
         when :price, :bookTicker, :avgPrice
           "/api/v3/ticker/#{type.to_s.camelize(:lower)}"
         end

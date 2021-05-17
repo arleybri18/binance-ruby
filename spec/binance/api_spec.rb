@@ -39,7 +39,7 @@ RSpec.describe Binance::Api do
 
     context 'when api responds with error' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/klines')
+        stub_request(:get, 'https://api.binance.com/api/v3/klines')
           .with(query: { endTime: end_time, interval: interval, limit: limit, startTime: start_time, symbol: symbol })
           .to_return(status: 400, body: { msg: 'error', code: '400' }.to_json)
       end
@@ -51,7 +51,7 @@ RSpec.describe Binance::Api do
 
     context 'when api succeeds' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/klines')
+        stub_request(:get, 'https://api.binance.com/api/v3/klines')
           .with(query: { endTime: end_time, interval: interval, limit: limit, startTime: start_time, symbol: symbol })
           .to_return(status: 200, body: json_fixture('candlesticks'))
       end
@@ -80,7 +80,7 @@ RSpec.describe Binance::Api do
 
     context 'when api responds with error' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/aggTrades')
+        stub_request(:get, 'https://api.binance.com/api/v3/aggTrades')
           .with(query: { fromId: from_id, endTime: end_time, limit: limit, startTime: start_time, symbol: symbol })
           .to_return(status: 400, body: { msg: 'error', code: '400' }.to_json)
       end
@@ -92,7 +92,7 @@ RSpec.describe Binance::Api do
 
     context 'when api succeeds' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/aggTrades')
+        stub_request(:get, 'https://api.binance.com/api/v3/aggTrades')
           .with(query: { fromId: from_id, endTime: end_time, limit: limit, startTime: start_time, symbol: symbol })
           .to_return(status: 200, body: json_fixture('compressed_aggregate_trades'))
       end
@@ -119,7 +119,7 @@ RSpec.describe Binance::Api do
 
     context 'when api responds with error' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/depth')
+        stub_request(:get, 'https://api.binance.com/api/v3/depth')
           .with(query: { limit: limit, symbol: symbol })
           .to_return(status: 400, body: { msg: 'error', code: '400' }.to_json)
       end
@@ -131,7 +131,7 @@ RSpec.describe Binance::Api do
 
     context 'when api succeeds' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/depth')
+        stub_request(:get, 'https://api.binance.com/api/v3/depth')
           .with(query: { limit: limit, symbol: symbol })
           .to_return(status: 200, body: json_fixture('depth'))
       end
@@ -147,7 +147,7 @@ RSpec.describe Binance::Api do
 
     context 'when api responds with error' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/exchangeInfo')
+        stub_request(:get, 'https://api.binance.com/api/v3/exchangeInfo')
           .to_return(status: 400, body: { msg: 'error', code: '400' }.to_json)
       end
 
@@ -158,7 +158,7 @@ RSpec.describe Binance::Api do
 
     context 'when api succeeds' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/exchangeInfo')
+        stub_request(:get, 'https://api.binance.com/api/v3/exchangeInfo')
           .to_return(status: 200, body: json_fixture('exchange_info'))
       end
 
@@ -183,7 +183,7 @@ RSpec.describe Binance::Api do
 
     context 'when api responds with error' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/historicalTrades')
+        stub_request(:get, 'https://api.binance.com/api/v3/historicalTrades')
           .with(query: { fromId: from_id, limit: limit, symbol: symbol })
           .to_return(status: 400, body: { msg: 'error', code: '400' }.to_json)
       end
@@ -195,7 +195,7 @@ RSpec.describe Binance::Api do
 
     context 'when api succeeds' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/historicalTrades')
+        stub_request(:get, 'https://api.binance.com/api/v3/historicalTrades')
           .with(query: { fromId: from_id, limit: limit, symbol: symbol })
           .to_return(status: 200, body: json_fixture('trades'))
       end
@@ -252,7 +252,7 @@ RSpec.describe Binance::Api do
 
     context 'when api responds with error' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/ping')
+        stub_request(:get, 'https://api.binance.com/api/v3/ping')
           .to_return(status: 429, body: { msg: 'rate limited', code: '429' }.to_json)
       end
 
@@ -263,7 +263,7 @@ RSpec.describe Binance::Api do
 
     context 'when api succeeds' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/ping')
+        stub_request(:get, 'https://api.binance.com/api/v3/ping')
           .to_return(status: 200, body: {}.to_json)
       end
 
@@ -315,7 +315,7 @@ RSpec.describe Binance::Api do
 
     context 'when type is daily' do
       let!(:request_stub) do
-        url = "https://api.binance.com/api/v1/ticker/24hr" 
+        url = "https://api.binance.com/api/v3/ticker/24hr"
         url += "?symbol=#{symbol}" if symbol
         stub_request(:get, url).to_return(stub_response)
       end
@@ -396,7 +396,7 @@ RSpec.describe Binance::Api do
 
     context 'when api responds with error' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/time')
+        stub_request(:get, 'https://api.binance.com/api/v3/time')
           .to_return(status: 500, body: { msg: 'failure', code: '500' }.to_json)
       end
 
@@ -407,7 +407,7 @@ RSpec.describe Binance::Api do
 
     context 'when api succeeds' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/time')
+        stub_request(:get, 'https://api.binance.com/api/v3/time')
           .to_return(status: 200, body: { serverTime: 4632823 }.to_json)
       end
 
@@ -431,7 +431,7 @@ RSpec.describe Binance::Api do
 
     context 'when api responds with error' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/trades')
+        stub_request(:get, 'https://api.binance.com/api/v3/trades')
           .with(query: { limit: limit, symbol: symbol })
           .to_return(status: 400, body: { msg: 'error', code: '400' }.to_json)
       end
@@ -443,7 +443,7 @@ RSpec.describe Binance::Api do
 
     context 'when api succeeds' do
       let!(:request_stub) do
-        stub_request(:get, 'https://api.binance.com/api/v1/trades')
+        stub_request(:get, 'https://api.binance.com/api/v3/trades')
           .with(query: { limit: limit, symbol: symbol })
           .to_return(status: 200, body: json_fixture('trades'))
       end
