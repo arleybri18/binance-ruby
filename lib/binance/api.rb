@@ -46,7 +46,7 @@ module Binance
       end
 
       def ping!
-        Request.send!(path: "/api/v1/ping")
+        Request.send!(path: "/api/v3/ping")
       end
 
       def ticker!(symbol: nil, type: nil, api_key: nil, api_secret_key: nil)
@@ -60,7 +60,7 @@ module Binance
       end
 
       def time!
-        Request.send!(path: "/api/v1/time")
+        Request.send!(path: "/api/v3/time")
       end
 
       def trades!(symbol: nil, limit: 500, api_key: nil, api_secret_key: nil)
